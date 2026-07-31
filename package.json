@@ -1,0 +1,14 @@
+{
+  "name": "onestamp",
+  "version": "1.0.0",
+  "description": "OneStamp - Punch and share circular photo stamps",
+  "main": "OneStamp.html",
+  "scripts": {
+    "dev": "python -m http.server 3000",
+    "build": "echo 'OneStamp is a static HTML app'",
+    "deploy": "vercel"
+  },
+  "keywords": ["stamp", "photo", "punch", "share"],
+  "author": "",
+  "license": "MIT"
+}

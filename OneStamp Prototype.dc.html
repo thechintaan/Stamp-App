@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<template id="__bundler_thumbnail" data-bg-color="#E4E1D4">
+  <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="100" cy="100" r="45" fill="#1C1B18" opacity="0.9"/>
+    <circle cx="100" cy="100" r="38" fill="none" stroke="#1C1B18" stroke-width="2"/>
+    <circle cx="100" cy="100" r="32" fill="none" stroke="#1C1B18" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.6"/>
+    <circle cx="100" cy="100" r="20" fill="#FCFAF5"/>
+    <path d="M100 90 L100 110 M90 100 L110 100" stroke="#1C1B18" stroke-width="2" stroke-linecap="round"/>
+  </svg>
+</template>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; background: #E4E1D4; }
+    @keyframes stampSettle {
+      0% { opacity: 0; transform: scale(0.55) rotate(0deg); }
+      60% { opacity: 1; transform: scale(1.05) rotate(var(--rot, 0deg)); }
+      100% { opacity: 1; transform: scale(1) rotate(var(--rot, 0deg)); }
+    }
+    a { color: #1C1B18; }
+    a:hover { color: #55524A; }
+  </style>
+  <script src="./image-slot.js"></script>
+</helmet>
+<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;padding:40px;box-sizing:border-box;">
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" width="{{390}}" height="{{844}}" hint-size="390,844">
+
+  <!-- ============ HOME ============ -->
+  <sc-if value="{{isHome}}" hint-placeholder-val="{{true}}">
+  <div style="position:relative;width:100%;height:100%;overflow:hidden;background:linear-gradient(180deg,#FBF8F1 0%,#E7E4D9 100%);font-family:'Outfit',sans-serif;">
+    <div style="position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;">
+      <div style="padding:104px 20px 150px;display:flex;flex-direction:column;gap:16px;">
+        <sc-for list="{{collectionsWithMeta}}" as="col" hint-placeholder-count="2">
+          <div onClick="{{col.onOpen}}" style="position:relative;background:#FCFAF5;border-radius:28px;box-shadow:0 10px 30px rgba(28,27,24,0.08),0 2px 8px rgba(28,27,24,0.05);padding:24px 24px 0;cursor:pointer;overflow:hidden;">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;">
+              <div>
+                <div style="font-size:24px;font-weight:700;color:#1C1B18;letter-spacing:-0.01em;">{{col.name}}</div>
+                <div style="font-size:15px;color:#8A8577;margin-top:4px;">{{col.countLabel}}</div>
+              </div>
+              <div onClick="{{col.onQuickAdd}}" style="width:32px;height:32px;border-radius:9999px;background:#F1ECDD;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#1C1B18" stroke-width="2.4" stroke-linecap="round"></path></svg>
+              </div>
+            </div>
+            <div style="display:flex;gap:2px;margin-top:20px;height:150px;overflow:hidden;border-radius:0 0 28px 28px;">
+              <sc-if value="{{col.hasStamps}}" hint-placeholder-val="{{true}}">
+                <sc-for list="{{col.covers}}" as="stamp" hint-placeholder-count="3">
+                  <div style="flex:1;position:relative;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;">
+                    <div style="width:78%;aspect-ratio:{{stamp.aspect}};-webkit-mask-image:url({{stamp.maskUri}});mask-image:url({{stamp.maskUri}});-webkit-mask-mode:luminance;mask-mode:luminance;-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;">
+                      <image-slot id="stamp-{{stamp.id}}" shape="rect" placeholder="Photo" src="{{stamp.photoSrc}}" style="width:100%;height:100%;"></image-slot>
+                    </div>
+                  </div>
+                </sc-for>
+              </sc-if>
+              <sc-if value="{{col.empty}}" hint-placeholder-val="{{false}}">
+                <div style="flex:1;display:flex;align-items:center;justify-content:center;color:#8A8577;font-size:15px;padding-bottom:20px;">Punch your first stamp</div>
+              </sc-if>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div onClick="{{noop}}" style="position:absolute;top:60px;left:20px;width:44px;height:44px;border-radius:9999px;background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.08);cursor:pointer;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z" stroke="#1C1B18" stroke-width="2" stroke-linejoin="round"></path></svg>
+    </div>
+    <div style="position:absolute;top:71px;left:0;right:0;text-align:center;font-size:20px;font-weight:700;color:#1C1B18;pointer-events:none;">OneStamp</div>
+    <div onClick="{{toggleHomeMenu}}" style="position:absolute;top:60px;right:20px;width:44px;height:44px;border-radius:9999px;background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.08);cursor:pointer;z-index:41;">
+      <svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.6" fill="#1C1B18"></circle><circle cx="12" cy="12" r="1.6" fill="#1C1B18"></circle><circle cx="12" cy="19" r="1.6" fill="#1C1B18"></circle></svg>
+    </div>
+
+    <sc-if value="{{homeMenuOpen}}" hint-placeholder-val="{{false}}">
+      <div onClick="{{closeMenus}}" style="position:absolute;inset:0;z-index:30;"></div>
+      <div style="position:absolute;top:112px;right:20px;background:rgba(252,250,245,0.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-radius:24px;box-shadow:0 20px 50px rgba(0,0,0,0.18);min-width:230px;overflow:hidden;z-index:40;">
+        <div onClick="{{createCollection}}" style="display:flex;align-items:center;gap:14px;padding:0 20px;height:56px;box-sizing:border-box;cursor:pointer;font-size:17px;color:#1C1B18;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z" stroke="#1C1B18" stroke-width="2" stroke-linejoin="round"></path><path d="M12 10v5M9.5 12.5h5" stroke="#1C1B18" stroke-width="2" stroke-linecap="round"></path></svg>
+          Create New Collection
+        </div>
+        <div onClick="{{closeMenus}}" style="display:flex;align-items:center;gap:14px;padding:0 20px;height:56px;box-sizing:border-box;cursor:pointer;font-size:17px;color:#1C1B18;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z" stroke="#1C1B18" stroke-width="2" stroke-linejoin="round"></path></svg>
+          Manage Collections
+        </div>
+      </div>
+    </sc-if>
+
+    <div style="position:absolute;bottom:40px;left:20px;right:20px;display:flex;align-items:center;justify-content:flex-end;z-index:20;">
+      <div onClick="{{openCapture}}" style="width:64px;height:64px;border-radius:9999px;background:#FCFAF5;box-shadow:0 10px 24px rgba(28,27,24,0.2);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#1C1B18" stroke-width="2.4" stroke-linecap="round"></path></svg>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ============ GRID / ALBUM ============ -->
+  <sc-if value="{{isGrid}}" hint-placeholder-val="{{false}}">
+  <div style="position:relative;width:100%;height:100%;overflow:hidden;background:linear-gradient(180deg,#FBF8F1 0%,#E7E4D9 100%);font-family:'Outfit',sans-serif;">
+    <div style="position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:104px 20px 150px;">
+        <sc-for list="{{gridStamps}}" as="stamp" hint-placeholder-count="6">
+          <div onClick="{{stamp.onClick}}" onPointerDown="{{stamp.onPointerDown}}" onPointerUp="{{stamp.onPointerUp}}" onPointerLeave="{{stamp.onPointerUp}}" style="position:relative;--rot:{{stamp.rotation}}deg;transform:rotate({{stamp.rotation}}deg);cursor:pointer;filter:drop-shadow(0 4px 10px rgba(28,27,24,0.16));{{stamp.animStyle}}">
+            <div style="width:100%;aspect-ratio:{{stamp.aspect}};-webkit-mask-image:url({{stamp.maskUri}});mask-image:url({{stamp.maskUri}});-webkit-mask-mode:luminance;mask-mode:luminance;-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;opacity:{{stamp.dimOpacity}};">
+              <image-slot id="stamp-{{stamp.id}}" shape="rect" placeholder="Photo" src="{{stamp.photoSrc}}" style="width:100%;height:100%;"></image-slot>
+            </div>
+            <sc-if value="{{stamp.selecting}}" hint-placeholder-val="{{false}}">
+              <div style="position:absolute;top:-6px;right:6%;width:26px;height:26px;border-radius:9999px;background:{{stamp.checkBg}};border:2px solid #FCFAF5;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,0.2);z-index:2;">
+                <sc-if value="{{stamp.selected}}" hint-placeholder-val="{{false}}">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                </sc-if>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <sc-if value="{{gridHeaderNormal}}" hint-placeholder-val="{{true}}">
+    <div onClick="{{backFromGrid}}" style="position:absolute;top:60px;left:20px;width:44px;height:44px;border-radius:9999px;background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.08);cursor:pointer;z-index:41;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#1C1B18" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    </div>
+    <sc-if value="{{renamingCollection}}" hint-placeholder-val="{{false}}">
+      <input value="{{currentCollectionName}}" onChange="{{setCollectionName}}" onBlur="{{cancelRenameCollection}}" autoFocus="{{true}}" style="position:absolute;top:60px;left:78px;pointer-events:auto;background:rgba(230,227,218,0.85);backdrop-filter:blur(10px);border-radius:9999px;padding:8px 18px;font-family:'Outfit',sans-serif;font-size:20px;font-weight:700;color:#1C1B18;border:none;outline:none;box-shadow:0 6px 18px rgba(28,27,24,0.1);max-width:200px;">
+    </sc-if>
+    <sc-if value="{{collectionTitleVisible}}" hint-placeholder-val="{{true}}">
+      <div style="position:absolute;top:69px;left:78px;display:flex;align-items:baseline;gap:8px;pointer-events:none;">
+        <span style="font-size:22px;font-weight:700;color:#1C1B18;">{{currentCollectionName}}</span>
+        <span style="font-size:17px;color:#8A8577;">{{gridStampCount}}</span>
+      </div>
+    </sc-if>
+    <div onClick="{{toggleHomeMenu}}" style="position:absolute;top:60px;right:20px;width:44px;height:44px;border-radius:9999px;background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.08);cursor:pointer;z-index:41;">
+      <svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.6" fill="#1C1B18"></circle><circle cx="12" cy="12" r="1.6" fill="#1C1B18"></circle><circle cx="12" cy="19" r="1.6" fill="#1C1B18"></circle></svg>
+    </div>
+
+    <sc-if value="{{homeMenuOpen}}" hint-placeholder-val="{{false}}">
+      <div onClick="{{closeMenus}}" style="position:absolute;inset:0;z-index:30;"></div>
+      <div style="position:absolute;top:112px;right:20px;background:rgba(252,250,245,0.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-radius:24px;box-shadow:0 20px 50px rgba(0,0,0,0.18);min-width:230px;overflow:hidden;z-index:40;">
+        <div onClick="{{enterSelectMode}}" style="display:flex;align-items:center;gap:14px;padding:0 20px;height:56px;box-sizing:border-box;cursor:pointer;font-size:17px;color:#1C1B18;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#1C1B18" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><rect x="3" y="3" width="18" height="18" rx="4" stroke="#1C1B18" stroke-width="2"></rect></svg>
+          Select Stamps
+        </div>
+        <div onClick="{{startRenameCollection}}" style="display:flex;align-items:center;gap:14px;padding:0 20px;height:56px;box-sizing:border-box;cursor:pointer;font-size:17px;color:#1C1B18;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 20l4-1 11-11-3-3L5 16l-1 4Z" stroke="#1C1B18" stroke-width="2" stroke-linejoin="round"></path></svg>
+          Rename Collection
+        </div>
+        <div onClick="{{requestDeleteCollection}}" style="display:flex;align-items:center;gap:14px;padding:0 20px;height:56px;box-sizing:border-box;cursor:pointer;font-size:17px;color:#FF3B30;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M9 7V4h6v3M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13" stroke="#FF3B30" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          Delete Collection
+        </div>
+      </div>
+    </sc-if>
+    </sc-if>
+
+    <sc-if value="{{selecting}}" hint-placeholder-val="{{false}}">
+      <div onClick="{{cancelSelectMode}}" style="position:absolute;top:60px;left:20px;height:44px;padding:0 18px;border-radius:9999px;background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,0.08);cursor:pointer;z-index:41;font-size:15px;font-weight:600;color:#1C1B18;">Cancel</div>
+      <div style="position:absolute;top:71px;left:0;right:0;text-align:center;font-size:20px;font-weight:700;color:#1C1B18;pointer-events:none;z-index:20;">{{selectCountLabel}}</div>
+      <div onClick="{{selectAllInGrid}}" style="position:absolute;top:60px;right:20px;height:44px;padding:0 18px;border-radius:9999px;background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,0.08);cursor:pointer;z-index:41;font-size:15px;font-weight:600;color:#1C1B18;">Select All</div>
+    </sc-if>
+
+    <sc-if value="{{gridHeaderNormal}}" hint-placeholder-val="{{true}}">
+    <div style="position:absolute;bottom:40px;left:20px;right:20px;display:flex;align-items:center;justify-content:flex-end;z-index:20;">
+      <div onClick="{{openCapture}}" style="width:64px;height:64px;border-radius:9999px;background:#FCFAF5;box-shadow:0 10px 24px rgba(28,27,24,0.2);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#1C1B18" stroke-width="2.4" stroke-linecap="round"></path></svg>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{selecting}}" hint-placeholder-val="{{false}}">
+      <div style="position:absolute;bottom:40px;left:20px;right:20px;display:flex;gap:10px;z-index:20;">
+        <div onClick="{{deleteSelected}}" style="flex:1;height:56px;border-radius:9999px;background:rgba(255,59,48,0.12);color:#FF3B30;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:600;cursor:pointer;opacity:{{selectionActionOpacity}};">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M9 7V4h6v3M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13" stroke="#FF3B30" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          Delete
+        </div>
+        <div onClick="{{openExportForSelection}}" style="flex:1;height:56px;border-radius:9999px;background:#1C1B18;color:#FCFAF5;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:600;cursor:pointer;opacity:{{selectionActionOpacity}};">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FCFAF5"><path d="M12 16V4M12 4l-4 4M12 4l4 4M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          Export
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{showDeleteCollectionConfirm}}" hint-placeholder-val="{{false}}">
+      <div onClick="{{cancelDeleteCollection}}" style="position:absolute;inset:0;background:rgba(20,18,15,0.4);z-index:90;"></div>
+      <div style="position:absolute;bottom:0;left:0;right:0;background:#FCFAF5;border-radius:28px 28px 0 0;padding:32px 28px 44px;box-shadow:0 -20px 50px rgba(0,0,0,0.2);z-index:91;text-align:center;font-family:'Outfit',sans-serif;box-sizing:border-box;">
+        <div style="font-size:22px;font-weight:700;color:#1C1B18;">Delete "{{currentCollectionName}}"?</div>
+        <div style="font-size:15px;color:#8A8577;margin-top:10px;line-height:1.5;">This permanently deletes the collection and everything in it. This can't be undone.</div>
+        <div onClick="{{confirmDeleteCollection}}" style="margin-top:24px;height:56px;border-radius:9999px;background:#FF3B30;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;cursor:pointer;">Delete Collection</div>
+        <div onClick="{{cancelDeleteCollection}}" style="margin-top:16px;font-size:15px;color:#8A8577;cursor:pointer;">Cancel</div>
+      </div>
+    </sc-if>
+  </div>
+  </sc-if>
+
+  <!-- ============ DETAIL ============ -->
+  <sc-if value="{{isDetail}}" hint-placeholder-val="{{false}}">
+  <div style="position:relative;width:100%;height:100%;overflow:hidden;background:{{detailBgStyle}};transition:background 0.4s ease;font-family:'Outfit',sans-serif;">
+    <div style="position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;">
+      <div style="padding:104px 0 100px;display:flex;flex-direction:column;align-items:center;">
+        <div style="position:relative;width:66%;aspect-ratio:{{currentStamp.aspect}};filter:drop-shadow(0 12px 28px rgba(0,0,0,0.35));-webkit-mask-image:url({{currentStamp.maskUri}});mask-image:url({{currentStamp.maskUri}});-webkit-mask-mode:luminance;mask-mode:luminance;-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;">
+          <image-slot id="stamp-{{currentStamp.id}}" ref="{{lockStampRef}}" shape="rect" placeholder="Photo" src="{{currentStamp.photoSrc}}" style="width:100%;height:100%;"></image-slot>
+        </div>
+        <sc-if value="{{renaming}}" hint-placeholder-val="{{false}}">
+          <input value="{{currentStamp.displayTitle}}" onChange="{{setStampTitle}}" onBlur="{{cancelRename}}" autoFocus="{{true}}" style="margin-top:-28px;z-index:5;background:rgba(20,18,15,0.5);backdrop-filter:blur(10px);border-radius:9999px;padding:14px 24px;text-align:center;font-family:'Outfit',sans-serif;font-size:17px;font-weight:700;color:#FCFAF5;border:none;outline:none;box-shadow:0 6px 18px rgba(0,0,0,0.25);">
+        </sc-if>
+        <div onClick="{{startRename}}" style="margin-top:-28px;z-index:4;background:rgba(20,18,15,0.5);backdrop-filter:blur(10px);border-radius:9999px;padding:14px 28px;text-align:center;cursor:pointer;{{titleCapsuleDisplay}}">
+          <div style="font-size:17px;font-weight:700;color:#FCFAF5;max-width:240px;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;">{{currentStamp.displayTitle}}</div>
+          <div style="font-size:14px;color:rgba(252,250,245,0.6);margin-top:2px;">{{currentStamp.date}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div onClick="{{backFromDetail}}" style="position:absolute;top:60px;left:20px;width:44px;height:44px;border-radius:9999px;background:rgba(20,18,15,0.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:41;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#FCFAF5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    </div>
+    <div style="position:absolute;top:60px;right:20px;display:flex;gap:12px;z-index:41;">
+      <div onClick="{{toggleStampMenu}}" style="width:44px;height:44px;border-radius:9999px;background:rgba(20,18,15,0.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;cursor:pointer;">
+        <svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.6" fill="#FCFAF5"></circle><circle cx="12" cy="12" r="1.6" fill="#FCFAF5"></circle><circle cx="12" cy="19" r="1.6" fill="#FCFAF5"></circle></svg>
+      </div>
+      <div onClick="{{openShare}}" style="width:44px;height:44px;border-radius:9999px;background:rgba(20,18,15,0.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;cursor:pointer;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 16V4M12 4l-4 4M12 4l4 4M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4" stroke="#FCFAF5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </div>
+    </div>
+
+    <sc-if value="{{stampMenuOpen}}" hint-placeholder-val="{{false}}">
+      <div onClick="{{closeMenus}}" style="position:absolute;inset:0;z-index:30;"></div>
+      <div style="position:absolute;top:112px;right:20px;background:rgba(252,250,245,0.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-radius:24px;box-shadow:0 20px 50px rgba(0,0,0,0.18);min-width:220px;overflow:hidden;z-index:40;">
+        <div onClick="{{startRename}}" style="display:flex;align-items:center;gap:14px;padding:0 20px;height:56px;box-sizing:border-box;cursor:pointer;font-size:17px;color:#1C1B18;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 20l4-1 11-11-3-3L5 16l-1 4Z" stroke="#1C1B18" stroke-width="2" stroke-linejoin="round"></path></svg>
+          Edit
+        </div>
+        <div onClick="{{openRecrop}}" style="display:flex;align-items:center;gap:14px;padding:0 20px;height:56px;box-sizing:border-box;cursor:pointer;font-size:17px;color:#1C1B18;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 2v14a2 2 0 0 0 2 2h14M18 22V8a2 2 0 0 0-2-2H2" stroke="#1C1B18" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          Recrop
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;padding:0 20px;height:56px;box-sizing:border-box;font-size:17px;color:#1C1B18;opacity:{{moveOpacity}};cursor:{{moveCursor}};">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1C1B18"><path d="M5 9l-3 3 3 3M19 9l3 3-3 3M2 12h20" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          Move
+        </div>
+        <div onClick="{{deleteStamp}}" style="display:flex;align-items:center;gap:14px;padding:0 20px;height:56px;box-sizing:border-box;cursor:pointer;font-size:17px;color:#FF3B30;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M9 7V4h6v3M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13" stroke="#FF3B30" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          Delete
+        </div>
+      </div>
+    </sc-if>
+  </div>
+  </sc-if>
+
+  <!-- ============ CAPTURE (the cutter) ============ -->
+  <sc-if value="{{isCapture}}" hint-placeholder-val="{{false}}">
+  <div ref="{{captureScreenRef}}" style="position:relative;width:100%;height:100%;overflow:hidden;background-color:#2E4A3E;background-image:url('assets/cutting-mat.jpg');background-size:cover;background-position:center;font-family:'Outfit',sans-serif;">
+    <sc-if value="{{cameraActive}}" hint-placeholder-val="{{false}}">
+      <div style="position:absolute;left:50%;top:50%;width:{{cardW}}px;height:{{cardH}}px;transform:translate(calc(-50% + {{feedView.x}}px), calc(-50% + {{feedView.y}}px));overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,0.35);">
+        <video ref="{{videoRef}}" autoplay="" playsinline="" muted="" style="width:100%;height:100%;object-fit:cover;background:#1C1B18;"></video>
+      </div>
+    </sc-if>
+    <sc-if value="{{showFeedFallback}}" hint-placeholder-val="{{true}}">
+    <div style="position:absolute;left:50%;top:50%;width:{{cardW}}px;height:{{cardH}}px;transform:translate(calc(-50% + {{feedView.x}}px), calc(-50% + {{feedView.y}}px));box-shadow:0 8px 24px rgba(0,0,0,0.35);">
+      <image-slot id="{{captureFeedId}}" ref="{{captureFeedRef}}" shape="rect" placeholder="Drop a photo" style="width:100%;height:100%;"></image-slot>
+    </div>
+    </sc-if>
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:230px;height:{{cutter.containerH}}px;transition:height 0.25s ease;">
+      <svg width="230" height="{{cutter.containerH}}" viewBox="0 0 300 {{cutter.viewBoxH}}" style="position:absolute;inset:0;filter:drop-shadow(0 14px 24px rgba(0,0,0,0.32));">
+        <defs>
+          <linearGradient id="alumGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#DADDE2"></stop>
+            <stop offset="55%" stop-color="#B6BAC1"></stop>
+            <stop offset="100%" stop-color="#95999F"></stop>
+          </linearGradient>
+        </defs>
+        <path d="{{cutter.outerCombinedPath}}" fill="#F2ECDE" fill-rule="evenodd"></path>
+        <path d="{{cutter.framePath}}" fill="url(#alumGrad)" fill-rule="evenodd"></path>
+        <rect x="70" y="{{cutter.guideRailY}}" width="5" height="{{cutter.guideRailH}}" fill="#A5AAB2" opacity="0.6"></rect>
+        <rect x="225" y="{{cutter.guideRailY}}" width="5" height="{{cutter.guideRailH}}" fill="#A5AAB2" opacity="0.6"></rect>
+        <rect x="135" y="{{cutter.hingeTopY}}" width="30" height="10" rx="4" fill="#9DA3AC"></rect>
+        <rect x="135" y="{{cutter.hingeBottomY}}" width="30" height="10" rx="4" fill="#9DA3AC"></rect>
+        <circle cx="58" cy="70" r="5" fill="#8A8E96" stroke="#6D7178"></circle>
+        <line x1="55" y1="67" x2="61" y2="73" stroke="#6D7178" stroke-width="1"></line>
+        <line x1="61" y1="67" x2="55" y2="73" stroke="#6D7178" stroke-width="1"></line>
+        <circle cx="110" cy="{{cutter.screwBottomCy}}" r="5" fill="#8A8E96" stroke="#6D7178"></circle>
+        <circle cx="190" cy="{{cutter.screwBottomCy}}" r="5" fill="#8A8E96" stroke="#6D7178"></circle>
+        <sc-for list="{{cutter.teeth}}" as="tooth" hint-placeholder-count="20">
+          <circle cx="{{tooth.cx}}" cy="{{tooth.cy}}" r="8" fill="#AEB2BA"></circle>
+        </sc-for>
+      </svg>
+      <div id="capture-hit" onClick="{{punch}}" style="position:absolute;left:{{cutter.hitLeft}}px;top:{{cutter.hitTop}}px;width:{{cutter.hitW}}px;height:{{cutter.hitH}}px;cursor:pointer;transition:transform 0.2s ease, height 0.25s ease;{{apertureAnim}}"></div>
+      <div style="position:absolute;left:0;right:0;top:{{cutter.hintTop}}px;text-align:center;font-size:13px;color:rgba(255,255,255,0.7);pointer-events:none;transition:top 0.25s ease;">Tap to punch</div>
+    </div>
+
+    <div onClick="{{closeCapture}}" style="position:absolute;top:60px;left:20px;width:44px;height:44px;border-radius:9999px;background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.08);cursor:pointer;z-index:41;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#1C1B18" stroke-width="2.2" stroke-linecap="round"></path></svg>
+    </div>
+    <sc-if value="{{cameraError}}" hint-placeholder-val="{{false}}">
+      <div style="position:absolute;top:60px;left:74px;right:74px;height:44px;border-radius:9999px;background:rgba(28,27,24,0.75);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:0 14px;z-index:41;">
+        <span style="font-size:12px;color:#FCFAF5;text-align:center;">Camera unavailable — tap the gallery icon to pick a photo</span>
+      </div>
+    </sc-if>
+    <div onClick="{{openLibraryPicker}}" style="position:absolute;top:60px;right:20px;width:44px;height:44px;border-radius:9999px;background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.08);cursor:pointer;z-index:41;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="#1C1B18" stroke-width="2"></rect><circle cx="8.5" cy="10" r="1.5" fill="#1C1B18"></circle><path d="M21 16l-5-5-4 4-2-2-4 4" stroke="#1C1B18" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    </div>
+
+    <div onClick="{{enterAdjust}}" style="position:absolute;top:114px;left:50%;transform:translateX(-50%);height:44px;padding:0 20px;border-radius:9999px;background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;gap:8px;box-shadow:0 2px 8px rgba(0,0,0,0.08);cursor:pointer;z-index:41;font-size:15px;font-weight:600;color:#1C1B18;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1C1B18"><path d="M5 9l-3 3 3 3M19 9l3 3-3 3M2 12h20" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      Reposition
+    </div>
+
+    <div style="position:absolute;bottom:44px;left:50%;transform:translateX(-50%);display:flex;gap:4px;padding:4px;border-radius:9999px;background:rgba(20,18,15,0.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 4px 16px rgba(0,0,0,0.2);z-index:41;">
+      <sc-for list="{{formatsList}}" as="fmt" hint-placeholder-count="3">
+        <div onClick="{{fmt.onClick}}" style="width:64px;height:44px;border-radius:9999px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;background:{{fmt.bg}};box-shadow:{{fmt.shadow}};">
+          <div style="width:{{fmt.glyphW}}px;height:16px;border-radius:2px;border:1.6px solid {{fmt.fg}};box-sizing:border-box;"></div>
+          <div style="font-size:10px;font-weight:600;color:{{fmt.fg}};">{{fmt.label}}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ============ ADJUST (reposition/zoom the punch source) ============ -->
+  <sc-if value="{{isAdjust}}" hint-placeholder-val="{{false}}">
+  <div style="position:relative;width:100%;height:100%;overflow:hidden;background-color:#2E4A3E;background-image:url('assets/cutting-mat.jpg');background-size:cover;background-position:center;font-family:'Outfit',sans-serif;">
+    <sc-if value="{{cameraActive}}" hint-placeholder-val="{{false}}">
+      <div style="position:absolute;left:50%;top:50%;width:{{cardW}}px;height:{{cardH}}px;transform:translate(calc(-50% + {{feedView.x}}px), calc(-50% + {{feedView.y}}px));overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,0.35);">
+        <video ref="{{adjustVideoRef}}" autoplay="" playsinline="" muted="" style="width:100%;height:100%;object-fit:cover;background:#1C1B18;"></video>
+      </div>
+    </sc-if>
+    <sc-if value="{{showFeedFallback}}" hint-placeholder-val="{{true}}">
+      <div style="position:absolute;left:50%;top:50%;width:{{cardW}}px;height:{{cardH}}px;transform:translate(calc(-50% + {{feedView.x}}px), calc(-50% + {{feedView.y}}px));box-shadow:0 8px 24px rgba(0,0,0,0.35);">
+        <image-slot id="{{captureFeedId}}" ref="{{adjustFeedRef}}" shape="rect" placeholder="Drop a photo" style="width:100%;height:100%;"></image-slot>
+      </div>
+    </sc-if>
+    <div onPointerDown="{{adjustPointerDown}}" onPointerMove="{{adjustPointerMove}}" onPointerUp="{{adjustPointerUp}}" onPointerCancel="{{adjustPointerUp}}" onWheel="{{adjustWheel}}" style="position:absolute;inset:0;z-index:1;cursor:grab;touch-action:none;"></div>
+
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:{{cutter.hitW}}px;height:{{cutter.hitH}}px;box-shadow:0 0 0 9999px rgba(20,18,15,0.55);border:2px dashed rgba(255,255,255,0.9);border-radius:6px;pointer-events:none;z-index:15;"></div>
+    <div style="position:absolute;bottom:120px;left:0;right:0;text-align:center;font-size:13px;color:rgba(255,255,255,0.75);pointer-events:none;z-index:15;">Preview — drag to reposition, scroll to zoom. Nothing is punched yet.</div>
+
+    <div onClick="{{cancelAdjust}}" style="position:absolute;top:60px;left:20px;width:44px;height:44px;border-radius:9999px;background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.08);cursor:pointer;z-index:41;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#1C1B18" stroke-width="2.2" stroke-linecap="round"></path></svg>
+    </div>
+    <div style="position:absolute;top:71px;left:0;right:0;text-align:center;font-size:17px;font-weight:700;color:#fff;pointer-events:none;z-index:41;">Reposition</div>
+    <div onClick="{{commitAdjust}}" style="position:absolute;top:60px;right:20px;height:44px;padding:0 22px;border-radius:9999px;background:#FCFAF5;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,0.25);cursor:pointer;z-index:41;font-size:15px;font-weight:700;color:#1C1B18;">Done</div>
+
+    <div style="position:absolute;right:20px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;border-radius:9999px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,0.25);z-index:41;">
+      <div onClick="{{zoomIn}}" style="width:44px;height:44px;background:rgba(20,18,15,0.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:20px;font-weight:600;">+</div>
+      <div style="height:1px;background:rgba(255,255,255,0.2);"></div>
+      <div onClick="{{zoomOut}}" style="width:44px;height:44px;background:rgba(20,18,15,0.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:20px;font-weight:600;">−</div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ============ RECROP ============ -->
+  <sc-if value="{{isRecrop}}" hint-placeholder-val="{{false}}">
+  <div style="position:relative;width:100%;height:100%;overflow:hidden;background-color:#EDE6D8;background-image:radial-gradient(rgba(28,27,24,0.16) 1px, transparent 1px);background-size:22px 22px;font-family:'Outfit',sans-serif;">
+    <image-slot id="stamp-{{currentStamp.id}}" shape="rect" placeholder="Photo" style="position:absolute;inset:0;width:100%;height:100%;"></image-slot>
+
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:230px;height:{{cutter.containerH}}px;transition:height 0.25s ease;">
+      <svg width="230" height="{{cutter.containerH}}" viewBox="0 0 300 {{cutter.viewBoxH}}" style="position:absolute;inset:0;filter:drop-shadow(0 14px 24px rgba(0,0,0,0.32));">
+        <defs>
+          <linearGradient id="alumGrad2" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#DADDE2"></stop>
+            <stop offset="55%" stop-color="#B6BAC1"></stop>
+            <stop offset="100%" stop-color="#95999F"></stop>
+          </linearGradient>
+        </defs>
+        <path d="{{cutter.outerCombinedPath}}" fill="#F2ECDE" fill-rule="evenodd"></path>
+        <path d="{{cutter.framePath}}" fill="url(#alumGrad2)" fill-rule="evenodd"></path>
+        <rect x="70" y="{{cutter.guideRailY}}" width="5" height="{{cutter.guideRailH}}" fill="#A5AAB2" opacity="0.6"></rect>
+        <rect x="225" y="{{cutter.guideRailY}}" width="5" height="{{cutter.guideRailH}}" fill="#A5AAB2" opacity="0.6"></rect>
+        <rect x="135" y="{{cutter.hingeTopY}}" width="30" height="10" rx="4" fill="#9DA3AC"></rect>
+        <rect x="135" y="{{cutter.hingeBottomY}}" width="30" height="10" rx="4" fill="#9DA3AC"></rect>
+        <circle cx="58" cy="70" r="5" fill="#8A8E96" stroke="#6D7178"></circle>
+        <line x1="55" y1="67" x2="61" y2="73" stroke="#6D7178" stroke-width="1"></line>
+        <line x1="61" y1="67" x2="55" y2="73" stroke="#6D7178" stroke-width="1"></line>
+        <circle cx="110" cy="{{cutter.screwBottomCy}}" r="5" fill="#8A8E96" stroke="#6D7178"></circle>
+        <circle cx="190" cy="{{cutter.screwBottomCy}}" r="5" fill="#8A8E96" stroke="#6D7178"></circle>
+        <sc-for list="{{cutter.teeth}}" as="tooth" hint-placeholder-count="20">
+          <circle cx="{{tooth.cx}}" cy="{{tooth.cy}}" r="8" fill="#AEB2BA"></circle>
+        </sc-for>
+      </svg>
+      <div onClick="{{recropCommit}}" style="position:absolute;left:{{cutter.hitLeft}}px;top:{{cutter.hitTop}}px;width:{{cutter.hitW}}px;height:{{cutter.hitH}}px;cursor:pointer;transition:transform 0.2s ease, height 0.25s ease;{{apertureAnim}}"></div>
+      <div style="position:absolute;left:0;right:0;top:{{cutter.hintTop}}px;text-align:center;font-size:13px;color:rgba(255,255,255,0.7);pointer-events:none;transition:top 0.25s ease;">Tap to save recrop</div>
+    </div>
+
+    <div onClick="{{cancelRecrop}}" style="position:absolute;top:60px;left:20px;width:44px;height:44px;border-radius:9999px;background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.08);cursor:pointer;z-index:41;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#1C1B18" stroke-width="2.2" stroke-linecap="round"></path></svg>
+    </div>
+
+    <div style="position:absolute;bottom:44px;left:50%;transform:translateX(-50%);display:flex;gap:4px;padding:4px;border-radius:9999px;background:rgba(20,18,15,0.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 4px 16px rgba(0,0,0,0.2);z-index:41;">
+      <sc-for list="{{formatsList}}" as="fmt" hint-placeholder-count="3">
+        <div onClick="{{fmt.onClick}}" style="width:64px;height:44px;border-radius:9999px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;background:{{fmt.bg}};box-shadow:{{fmt.shadow}};">
+          <div style="width:{{fmt.glyphW}}px;height:16px;border-radius:2px;border:1.6px solid {{fmt.fg}};box-sizing:border-box;"></div>
+          <div style="font-size:10px;font-weight:600;color:{{fmt.fg}};">{{fmt.label}}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ============ REVIEW (keep or discard the punch) ============ -->
+  <sc-if value="{{isReview}}" hint-placeholder-val="{{false}}">
+  <div style="position:relative;width:100%;height:100%;overflow:hidden;background:linear-gradient(180deg,#FBF8F1 0%,#E7E4D9 100%);font-family:'Outfit',sans-serif;">
+    <div style="position:absolute;inset:0;overflow-y:auto;">
+      <div style="padding:190px 32px 40px;display:flex;flex-direction:column;align-items:center;">
+        <input value="{{draftTitleValue}}" onChange="{{setDraftTitle}}" placeholder="Name" style="width:100%;text-align:center;font-family:'Outfit',sans-serif;font-size:28px;font-weight:700;color:#1C1B18;background:transparent;border:none;outline:none;margin-bottom:32px;">
+        <div style="width:66%;aspect-ratio:{{draftStamp.aspect}};filter:drop-shadow(0 12px 28px rgba(28,27,24,0.22));-webkit-mask-image:url({{draftStamp.maskUri}});mask-image:url({{draftStamp.maskUri}});-webkit-mask-mode:luminance;mask-mode:luminance;-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;">
+          <image-slot id="stamp-{{draftStamp.id}}" shape="rect" placeholder="Photo" src="{{draftStamp.photoSrc}}" style="width:100%;height:100%;"></image-slot>
+        </div>
+        <div onClick="{{discardStamp}}" style="margin-top:28px;width:52px;height:52px;border-radius:9999px;background:#FCFAF5;box-shadow:0 4px 14px rgba(28,27,24,0.1);display:flex;align-items:center;justify-content:center;cursor:pointer;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M9 7V4h6v3M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13" stroke="#8A8577" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </div>
+      </div>
+    </div>
+
+    <div onClick="{{discardStamp}}" style="position:absolute;top:60px;left:20px;width:44px;height:44px;border-radius:9999px;background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.08);cursor:pointer;z-index:41;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#1C1B18" stroke-width="2.2" stroke-linecap="round"></path></svg>
+    </div>
+
+    <div onClick="{{keepStamp}}" style="position:absolute;bottom:40px;left:20px;right:20px;height:64px;border-radius:9999px;background:rgba(230,227,218,0.78);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;font-size:17px;font-weight:600;color:#1C1B18;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3v13M12 16l-5-5M12 16l5-5" stroke="#1C1B18" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M4 19h16" stroke="#1C1B18" stroke-width="2" stroke-linecap="round"></path></svg>
+      Save Stamp
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ============ SHARE ============ -->
+  <sc-if value="{{isShare}}" hint-placeholder-val="{{false}}">
+  <div style="position:relative;width:100%;height:100%;overflow:hidden;background:#141210;font-family:'Outfit',sans-serif;">
+    <div ref="{{shareScrollRef}}" onScroll="{{onShareScroll}}" style="position:absolute;inset:0;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:104px 0 190px;box-sizing:border-box;">
+      <sc-for list="{{shareCardsView}}" as="card" hint-placeholder-count="5">
+        <div style="flex:0 0 100%;scroll-snap-align:center;display:flex;align-items:center;justify-content:center;box-sizing:border-box;padding:0 32px;">
+          <div style="position:relative;width:100%;max-width:340px;aspect-ratio:4/5;border-radius:32px;overflow:hidden;background:{{card.css}};box-shadow:{{card.shadow}};">
+            <sc-if value="{{card.grain}}" hint-placeholder-val="{{false}}">
+              <div style="position:absolute;inset:0;background-image:url({{grainUri}});background-size:140px 140px;mix-blend-mode:overlay;opacity:0.35;pointer-events:none;"></div>
+            </sc-if>
+            <div style="position:absolute;left:50%;top:46%;transform:translate(-50%,-50%) rotate(1.5deg);width:{{shareStamp.stampWidthPct}}%;aspect-ratio:{{shareStamp.aspect}};filter:drop-shadow(0 14px 30px rgba(0,0,0,0.35));-webkit-mask-image:url({{shareStamp.maskUri}});mask-image:url({{shareStamp.maskUri}});-webkit-mask-mode:luminance;mask-mode:luminance;-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;">
+              <image-slot id="stamp-{{shareStamp.id}}" shape="rect" placeholder="Photo" src="{{shareStamp.photoSrc}}" style="width:100%;height:100%;"></image-slot>
+            </div>
+            <sc-if value="{{card.showCaption}}" hint-placeholder-val="{{true}}">
+              <div style="position:absolute;left:24px;bottom:22px;">
+                <div style="font-size:15px;font-weight:600;color:{{card.textColor}};opacity:0.7;">{{shareStamp.displayTitle}}</div>
+                <div style="font-size:12px;font-weight:500;color:{{card.textColor}};opacity:0.5;margin-top:2px;">{{shareStamp.date}}</div>
+              </div>
+              <div style="position:absolute;right:24px;bottom:22px;font-size:13px;font-weight:600;color:{{card.textColor}};opacity:0.5;">OneStamp</div>
+            </sc-if>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="position:absolute;top:112px;left:0;right:0;display:flex;justify-content:center;gap:6px;pointer-events:none;z-index:20;">
+      <sc-for list="{{shareDots}}" as="dot" hint-placeholder-count="5">
+        <div style="width:6px;height:6px;border-radius:9999px;background:{{dot.bg}};"></div>
+      </sc-for>
+    </div>
+
+    <div style="position:absolute;top:60px;left:24px;font-size:22px;font-weight:700;color:#FCFAF5;">Share</div>
+    <div onClick="{{closeShare}}" style="position:absolute;top:60px;right:20px;width:44px;height:44px;border-radius:9999px;background:rgba(255,255,255,0.12);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;cursor:pointer;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#FCFAF5" stroke-width="2.2" stroke-linecap="round"></path></svg>
+    </div>
+
+    <div style="position:absolute;bottom:40px;left:20px;right:20px;display:flex;gap:10px;z-index:20;">
+      <div onClick="{{downloadCard}}" style="flex:1;height:56px;border-radius:9999px;background:rgba(255,255,255,0.12);backdrop-filter:blur(10px);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;color:#FCFAF5;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3v13M12 16l-5-5M12 16l5-5" stroke="#FCFAF5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M4 19h16" stroke="#FCFAF5" stroke-width="2" stroke-linecap="round"></path></svg>
+        <span style="font-size:11px;font-weight:600;margin-top:3px;">Save</span>
+      </div>
+      <div onClick="{{copyCard}}" style="flex:1;height:56px;border-radius:9999px;background:rgba(255,255,255,0.12);backdrop-filter:blur(10px);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;color:#FCFAF5;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="7" y="4" width="10" height="16" rx="2" stroke="#FCFAF5" stroke-width="1.8"></rect><rect x="9" y="2" width="6" height="4" rx="1" fill="#FCFAF5"></rect></svg>
+        <span style="font-size:11px;font-weight:600;margin-top:3px;">Copy</span>
+      </div>
+      <div onClick="{{shareCard}}" style="flex:2;height:56px;border-radius:9999px;background:#FCFAF5;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;color:#1C1B18;font-size:16px;font-weight:700;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 16V4M12 4l-4 4M12 4l4 4M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4" stroke="#1C1B18" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        Share
+      </div>
+    </div>
+
+    <sc-if value="{{shareToastVisible}}" hint-placeholder-val="{{false}}">
+      <div style="position:absolute;bottom:110px;left:20px;right:20px;height:48px;border-radius:9999px;background:rgba(255,255,255,0.92);display:flex;align-items:center;justify-content:center;color:#1C1B18;font-size:14px;font-weight:600;z-index:60;">{{shareToast}}</div>
+    </sc-if>
+  </div>
+  </sc-if>
+
+
+  <sc-if value="{{showPaywall}}" hint-placeholder-val="{{false}}">
+    <div onClick="{{closePaywall}}" style="position:absolute;inset:0;background:rgba(20,18,15,0.4);z-index:90;"></div>
+    <div style="position:absolute;bottom:0;left:0;right:0;background:#FCFAF5;border-radius:28px 28px 0 0;padding:32px 28px 44px;box-shadow:0 -20px 50px rgba(0,0,0,0.2);z-index:91;text-align:center;font-family:'Outfit',sans-serif;">
+      <div style="font-size:22px;font-weight:700;color:#1C1B18;">You're all stamped up for today</div>
+      <div style="font-size:15px;color:#8A8577;margin-top:10px;line-height:1.5;">Come back tomorrow for more free stamps, or unlock unlimited punches.</div>
+      <div onClick="{{closePaywall}}" style="margin-top:24px;height:56px;border-radius:9999px;background:#1C1B18;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:600;cursor:pointer;">Get OneStamp+</div>
+      <div onClick="{{closePaywall}}" style="margin-top:16px;font-size:15px;color:#8A8577;cursor:pointer;">Not now</div>
+    </div>
+  </sc-if>
+
+</x-import>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  FORMATS = {
+    tall: { aspect: 0.56, label: 'Tall' },
+    standard: { aspect: 0.64, label: 'Standard' },
+    small: { aspect: 0.78, label: 'Small' },
+  };
+
+  state = {
+    screen: 'home',
+    overlay: null,
+    collections: [
+      { id: 'c1', name: 'My Stamps' },
+      { id: 'c2', name: 'Wanders' },
+    ],
+    stamps: [
+      { id: 's1', collectionId: 'c1', title: 'Orange Porsche', date: '6 June 2026', formatKey: 'standard', rotation: -2, photoSrc: 'uploads/IMG_0107.jpeg' },
+      { id: 's2', collectionId: 'c1', title: 'Racing Lineup', date: '12 June 2026', formatKey: 'tall', rotation: 1.5, photoSrc: 'uploads/IMG_0118.jpeg' },
+      { id: 's3', collectionId: 'c1', title: 'Green SUV', date: '18 June 2026', formatKey: 'standard', rotation: -1, photoSrc: 'uploads/IMG_0166.jpeg' },
+      { id: 's4', collectionId: 'c1', title: 'Red Racer', date: '21 June 2026', formatKey: 'small', rotation: 2, photoSrc: 'uploads/IMG_0253.jpeg' },
+      { id: 's5', collectionId: 'c1', title: 'Black & Gold', date: '25 June 2026', formatKey: 'standard', rotation: -2.5, photoSrc: 'uploads/IMG_0256.jpeg' },
+      { id: 's6', collectionId: 'c1', title: 'Yellow Classic', date: '25 June 2026', formatKey: 'tall', rotation: 1, photoSrc: 'uploads/IMG_0257.jpeg' },
+      { id: 's7', collectionId: 'c1', title: 'White Porsche', date: '26 June 2026', formatKey: 'standard', rotation: 0.5, photoSrc: 'uploads/IMG_0258.jpeg' },
+      { id: 's8', collectionId: 'c1', title: 'Red Thunder', date: '27 June 2026', formatKey: 'tall', rotation: -1.5, photoSrc: 'uploads/IMG_0259.jpeg' },
+      { id: 's9', collectionId: 'c1', title: 'Light Blue Truck', date: '28 June 2026', formatKey: 'standard', rotation: 2, photoSrc: 'uploads/IMG_0260.jpeg' },
+      { id: 's10', collectionId: 'c1', title: 'Orange Racer', date: '29 June 2026', formatKey: 'small', rotation: -0.8, photoSrc: 'uploads/IMG_0271.JPG' },
+    ],
+    currentCollectionId: null,
+    currentStampId: null,
+    renamingCollection: false,
+    showDeleteCollectionConfirm: false,
+    quotaRemaining: 25,
+    quotaTotal: 42,
+    captureFormat: 'standard',
+    punching: false,
+    showPaywall: false,
+    justCreatedId: null,
+    nextId: 7,
+    draftStamp: null,
+    captureSession: 0,
+    feedView: { s: 1.2, x: 0, y: 0 },
+    renaming: false,
+    repositioning: false,
+    cameraActive: false,
+    cameraError: null,
+    selecting: false,
+    selectedIds: [],
+    shareCardIndex: 0,
+    shareCards: null,
+    shareToast: null,
+    shareResolvedSrc: null,
+    detailBg: null,
+  };
+  FALLBACK_COLORS = { darkest: '#2A2822', lightest: '#E4E1D4', saturated: '#8A8577', warmest: '#8A8577', muted: true };
+
+  constructor(props) {
+    super(props);
+    // Unique per page-load so a fresh session never collides with an id the
+    // sidecar already has a photo stored under from a previous load.
+    this._sessionSalt = Math.random().toString(36).slice(2, 8);
+    this._drag = null;
+    this._preAdjustView = null;
+    this.masks = {};
+    Object.keys(this.FORMATS).forEach((k) => {
+      this.masks[k] = this.buildMask(this.FORMATS[k].aspect);
+    });
+  }
+
+  componentDidMount() {
+  }
+
+  componentWillUnmount() {
+    this.stopCamera();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevState) return;
+    if (this.state.screen !== prevState.screen && this.state.screen === 'recrop') {
+      this.enableFeedPan();
+    }
+  }
+
+  captureFeedId() {
+    return 'capture-feed-' + this._sessionSalt + '-' + this.state.captureSession;
+  }
+
+  captureFeedRef = (el) => {
+    if (el) this.lockStampRef(el);
+  };
+
+  captureScreenRef = (el) => {
+    if (el) this.requestCamera();
+    else this.stopCamera();
+  };
+
+  adjustVideoRef = (el) => {
+    if (el && this._cameraStream) { el.srcObject = this._cameraStream; el.play().catch(() => {}); }
+  };
+  adjustFeedRef = (el) => { if (el) this.lockStampRef(el); };
+
+  // Photo and video both render as a fixed-size "card" on the mat, sized
+  // from the cutter aperture (cardW/cardH in renderVals) — panning/zoom is
+  // clamped so the card always fully covers the aperture, so the mat can
+  // never show through the punch itself.
+  clampFeedView(v) {
+    const cutter = this.buildCutterGeom(this.FORMATS[this.state.captureFormat].aspect);
+    const s = Math.max(1, Math.min(4, v.s));
+    const mx = (cutter.hitW * (s - 1)) / 2;
+    const my = (cutter.hitH * (s - 1)) / 2;
+    return { s, x: Math.max(-mx, Math.min(mx, v.x)), y: Math.max(-my, Math.min(my, v.y)) };
+  }
+
+  enterAdjust = () => {
+    this._preAdjustView = { ...this.state.feedView };
+    this.setState({ screen: 'adjust' });
+  };
+  cancelAdjust = () => {
+    this.setState({ feedView: this._preAdjustView || { s: 1.2, x: 0, y: 0 }, screen: 'capture' });
+  };
+  commitAdjust = () => this.setState({ screen: 'capture' });
+
+  adjustPointerDown = (e) => {
+    e.preventDefault();
+    try { e.currentTarget.setPointerCapture(e.pointerId); } catch (err) {}
+    this._drag = { px: e.clientX, py: e.clientY, x0: this.state.feedView.x, y0: this.state.feedView.y };
+  };
+  adjustPointerMove = (e) => {
+    const d = this._drag;
+    if (!d) return;
+    const x = d.x0 + (e.clientX - d.px);
+    const y = d.y0 + (e.clientY - d.py);
+    this.setState((s) => ({ feedView: this.clampFeedView({ ...s.feedView, x, y }) }));
+  };
+  adjustPointerUp = () => { this._drag = null; };
+  adjustWheel = (e) => {
+    e.preventDefault();
+    this.setState((s) => ({ feedView: this.clampFeedView({ ...s.feedView, s: s.feedView.s * Math.exp(-e.deltaY * 0.0015) }) }));
+  };
+  zoomIn = () => this.setState((s) => ({ feedView: this.clampFeedView({ ...s.feedView, s: s.feedView.s * 1.25 }) }));
+  zoomOut = () => this.setState((s) => ({ feedView: this.clampFeedView({ ...s.feedView, s: s.feedView.s / 1.25 }) }));
+
+  requestCamera = () => {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      this.setState({ cameraActive: false, cameraError: 'unsupported' });
+      return;
+    }
+    navigator.mediaDevices.getUserMedia({
+      video: { facingMode: { ideal: 'environment' }, width: { ideal: 1280 }, height: { ideal: 960 } },
+      audio: false,
+    }).then((stream) => {
+      if (this.state.screen !== 'capture') { stream.getTracks().forEach((t) => t.stop()); return; }
+      this._cameraStream = stream;
+      this.setState({ cameraActive: true, cameraError: null }, () => {
+        if (this._videoEl) { this._videoEl.srcObject = stream; this._videoEl.play().catch(() => {}); }
+      });
+    }).catch((err) => {
+      this.setState({ cameraActive: false, cameraError: (err && err.name) || 'error' });
+    });
+  };
+
+  stopCamera = () => {
+    if (this._cameraStream) {
+      this._cameraStream.getTracks().forEach((t) => t.stop());
+      this._cameraStream = null;
+    }
+    if (this.state.cameraActive) this.setState({ cameraActive: false });
+  };
+
+  videoRef = (el) => {
+    this._videoEl = el;
+    if (el && this._cameraStream) { el.srcObject = this._cameraStream; el.play().catch(() => {}); }
+  };
+
+  _hideCtl = (el) => {
+    const inject = () => {
+      if (el.shadowRoot && !el.shadowRoot.querySelector('style[data-lock-ctl]')) {
+        const style = document.createElement('style');
+        style.setAttribute('data-lock-ctl', '');
+        style.textContent = '.ctl{display:none !important}';
+        el.shadowRoot.appendChild(style);
+      }
+    };
+    inject();
+    if (!el._lockObserver && el.shadowRoot) {
+      el._lockObserver = new MutationObserver(inject);
+      el._lockObserver.observe(el.shadowRoot, { childList: true, subtree: true });
+    }
+  };
+  // Read-only displays (capture pre-adjust, detail, review, grid) — no drag/zoom.
+  lockStampRef = (el) => {
+    if (!el) return;
+    el._reframes = () => false;
+    this._hideCtl(el);
+  };
+
+  enableFeedPan() {
+    const id = 'stamp-' + this.state.currentStampId;
+    const tryEnable = (attempt) => {
+      const slot = document.getElementById(id);
+      if (slot && slot.hasAttribute && slot.hasAttribute('data-filled')) {
+        if (typeof slot._enterReframe === 'function' && !slot.hasAttribute('data-reframe')) slot._enterReframe();
+      } else if (attempt < 10) {
+        setTimeout(() => tryEnable(attempt + 1), 150);
+      }
+    };
+    tryEnable(0);
+  }
+
+  buildMask(aspect) {
+    let W, H;
+    if (aspect <= 1) { W = Math.round(100 * aspect); H = 100; } else { W = 100; H = Math.round(100 / aspect); }
+    const short = Math.min(W, H);
+    const r = short * 0.028;
+    const inset = r;
+    const usableW = W - 2 * inset, usableH = H - 2 * inset;
+    const nTop = Math.max(3, Math.round(usableW / (2 * r)));
+    const nSide = Math.max(3, Math.round(usableH / (2 * r)));
+    let circles = '';
+    for (let i = 0; i <= nTop; i++) {
+      const x = inset + usableW * i / nTop;
+      circles += `<circle cx="${x.toFixed(2)}" cy="0" r="${r.toFixed(2)}" fill="black"/>`;
+      circles += `<circle cx="${x.toFixed(2)}" cy="${H}" r="${r.toFixed(2)}" fill="black"/>`;
+    }
+    for (let i = 0; i <= nSide; i++) {
+      const y = inset + usableH * i / nSide;
+      circles += `<circle cx="0" cy="${y.toFixed(2)}" r="${r.toFixed(2)}" fill="black"/>`;
+      circles += `<circle cx="${W}" cy="${y.toFixed(2)}" r="${r.toFixed(2)}" fill="black"/>`;
+    }
+    // Explicit width/height (well above real display size) forces high-res
+    // rasterization of this mask before the CSS mask-size stretch — without
+    // it, some browsers rasterize at the SVG's tiny ~100px intrinsic default
+    // and the scalloped perforations come out visibly blocky.
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${Math.round(W * 10)}" height="${Math.round(H * 10)}" viewBox="0 0 ${W} ${H}"><rect x="0" y="0" width="${W}" height="${H}" rx="${(short * 0.02).toFixed(2)}" fill="white"/>${circles}</svg>`;
+    return 'data:image/svg+xml,' + encodeURIComponent(svg);
+  }
+
+  buildCutterGeom(aspect) {
+    const apertureW = 168, apertureX = 66, apertureY = 84;
+    const apertureH = apertureW / aspect;
+    const apertureBottomY = apertureY + apertureH;
+    const frameX = 40, frameW = 220, frameY = 56;
+    const frameH = apertureH + 56;
+    const frameBottomY = frameY + frameH;
+    const outerX = 10, outerW = 280, outerY = 10;
+    const outerH = frameH + 92;
+    const outerBottomY = outerY + outerH;
+    const viewBoxH = outerBottomY + 14;
+    const scale = 230 / 300;
+    const xs = [78, 102, 126, 150, 174, 198, 222];
+    const teeth = [];
+    xs.forEach((x) => { teeth.push({ cx: x, cy: apertureY }); teeth.push({ cx: x, cy: apertureBottomY }); });
+    const nSide = Math.max(4, Math.round(apertureH / 27));
+    for (let i = 0; i < nSide; i++) {
+      const cy = apertureY + 12 + (apertureH - 24) * i / (nSide - 1);
+      teeth.push({ cx: apertureX, cy });
+      teeth.push({ cx: apertureX + apertureW, cy });
+    }
+    const outerPath = `M${outerX + 42},${outerY} L${outerX + outerW - 42},${outerY} Q${outerX + outerW},${outerY} ${outerX + outerW},${outerY + 42} L${outerX + outerW},${outerBottomY - 42} Q${outerX + outerW},${outerBottomY} ${outerX + outerW - 42},${outerBottomY} L${outerX + 42},${outerBottomY} Q${outerX},${outerBottomY} ${outerX},${outerBottomY - 42} L${outerX},${outerY + 42} Q${outerX},${outerY} ${outerX + 42},${outerY} Z`;
+    const holePath = `M${apertureX},${apertureY} L${apertureX + apertureW},${apertureY} L${apertureX + apertureW},${apertureBottomY} L${apertureX},${apertureBottomY} Z`;
+    const framePath = `M${frameX + 18},${frameY} L${frameX + frameW - 18},${frameY} Q${frameX + frameW},${frameY} ${frameX + frameW},${frameY + 18} L${frameX + frameW},${frameBottomY - 18} Q${frameX + frameW},${frameBottomY} ${frameX + frameW - 18},${frameBottomY} L${frameX + 18},${frameBottomY} Q${frameX},${frameBottomY} ${frameX},${frameBottomY - 18} L${frameX},${frameY + 18} Q${frameX},${frameY} ${frameX + 18},${frameY} Z ${holePath}`;
+    const outerCombinedPath = `${outerPath} ${holePath}`;
+    return {
+      viewBoxH: Math.round(viewBoxH),
+      containerH: Math.round(230 * viewBoxH / 300),
+      outerCombinedPath, framePath, teeth,
+      hingeTopY: frameY - 6, hingeBottomY: frameBottomY - 4,
+      screwBottomCy: frameBottomY - 14,
+      guideRailY: apertureY + 16, guideRailH: Math.round(apertureH - 32),
+      hitTop: Math.round(apertureY * scale * 10) / 10, hitLeft: Math.round(apertureX * scale * 10) / 10,
+      hitW: Math.round(apertureW * scale * 10) / 10, hitH: Math.round(apertureH * scale * 10) / 10,
+      hintTop: Math.round((apertureBottomY + 16) * scale),
+    };
+  }
+
+  today() {
+    const d = new Date();
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+  }
+
+  decorateStamp(s) {
+    return {
+      ...s,
+      maskUri: this.masks[s.formatKey],
+      aspect: this.FORMATS[s.formatKey].aspect,
+      displayTitle: s.title || 'Untitled',
+      photoSrc: s.photoSrc || '',
+      sourceSrc: s.sourceSrc || s.photoSrc || '',
+      sourceAspect: s.sourceAspect || 0.75,
+      rectPct: s.rectPct || { x: 0, y: 0, w: 1, h: 1 },
+      onOpen: () => this.openStamp(s.id),
+      animStyle: s.id === this.state.justCreatedId ? `animation: stampSettle 0.5s cubic-bezier(.2,.9,.3,1) both;` : '',
+    };
+  }
+
+  noop = () => {};
+  openCollection = (id) => this.setState({ currentCollectionId: id, screen: 'grid', overlay: null });
+  backFromGrid = () => this.setState({ screen: 'home', overlay: null });
+  openStamp = (id) => {
+    this.setState({ currentStampId: id, screen: 'detail', overlay: null, renaming: false, detailBg: null });
+    this.resolveAndSampleForDetail(id, 0);
+  };
+  resolveAndSampleForDetail = (id, attempt) => {
+    const st = this.state.stamps.find((s) => s.id === id);
+    if (!st) return;
+    const resolved = st.photoSrc || this.getStampPhotoDataUrl(id);
+    if (resolved) {
+      this.sampleDominantColors(resolved, (colors) => {
+        if (this.state.currentStampId !== id) return;
+        const cards = this.buildShareCards(colors);
+        this.setState({ detailBg: cards[3].css });
+      });
+    } else if (attempt < 10) {
+      setTimeout(() => this.resolveAndSampleForDetail(id, attempt + 1), 150);
+    }
+  };
+  backFromDetail = () => this.setState({ screen: 'grid', overlay: null, renaming: false });
+  toggleHomeMenu = () => this.setState((s) => ({ overlay: s.overlay === 'home' ? null : 'home' }));
+  toggleStampMenu = () => this.setState((s) => ({ overlay: s.overlay === 'stamp' ? null : 'stamp' }));
+  closeMenus = () => this.setState({ overlay: null });
+  createCollection = () => this.setState((s) => ({ collections: [...s.collections, { id: 'c' + Date.now(), name: 'New Collection' }], overlay: null }));
+  startRenameCollection = () => this.setState({ renamingCollection: true, overlay: null });
+  cancelRenameCollection = () => this.setState({ renamingCollection: false });
+  setCollectionName = (e) => {
+    const v = e.target.value;
+    this.setState((s) => ({ collections: s.collections.map((c) => c.id === s.currentCollectionId ? { ...c, name: v } : c) }));
+  };
+  requestDeleteCollection = () => this.setState({ overlay: null, showDeleteCollectionConfirm: true });
+  cancelDeleteCollection = () => this.setState({ showDeleteCollectionConfirm: false });
+  confirmDeleteCollection = () => this.setState((s) => ({
+    collections: s.collections.filter((c) => c.id !== s.currentCollectionId),
+    stamps: s.stamps.filter((st) => st.collectionId !== s.currentCollectionId),
+    showDeleteCollectionConfirm: false,
+    currentCollectionId: null,
+    screen: 'home',
+  }));
+  deleteStamp = () => this.setState((s) => ({ stamps: s.stamps.filter((st) => st.id !== s.currentStampId), screen: 'grid', overlay: null }));
+  openShare = () => {
+    this.setState({ screen: 'share', shareCardIndex: 0, shareCards: this.buildShareCards(null), shareResolvedSrc: null });
+    const stId = this.state.currentStampId;
+    const tryResolve = (attempt) => {
+      const st = this.state.stamps.find((s) => s.id === stId);
+      if (!st) return;
+      const resolved = st.photoSrc || this.getStampPhotoDataUrl(stId);
+      if (resolved) {
+        this.setState({ shareResolvedSrc: resolved });
+        this.sampleDominantColors(resolved, (colors) => this.setState({ shareCards: this.buildShareCards(colors) }));
+      } else if (attempt < 10) {
+        setTimeout(() => tryResolve(attempt + 1), 150);
+      }
+    };
+    tryResolve(0);
+  };
+  closeShare = () => this.setState({ screen: 'detail' });
+
+  // Seed/legacy stamps carry no photoSrc in state — their photo lives only
+  // in the image-slot sidecar (keyed by DOM id) and needs to be read back
+  // out of the mounted <img> for canvas export / colour sampling.
+  getStampPhotoDataUrl(id) {
+    const slot = document.getElementById('stamp-' + id);
+    if (slot && slot.shadowRoot) {
+      const img = slot.shadowRoot.querySelector('.frame img');
+      if (img && img.naturalWidth) {
+        try {
+          const c = document.createElement('canvas');
+          c.width = img.naturalWidth; c.height = img.naturalHeight;
+          c.getContext('2d').drawImage(img, 0, 0);
+          return c.toDataURL('image/jpeg', 0.92);
+        } catch (e) { return img.src || null; }
+      }
+    }
+    return null;
+  }
+
+  hexToRgb(hex) { hex = hex.replace('#', ''); return [parseInt(hex.slice(0,2),16), parseInt(hex.slice(2,4),16), parseInt(hex.slice(4,6),16)]; }
+  rgbToHex(r,g,b) { return '#' + [r,g,b].map((v) => Math.max(0, Math.min(255, Math.round(v))).toString(16).padStart(2,'0')).join(''); }
+  rgbToHsl(r,g,b) {
+    r/=255; g/=255; b/=255;
+    const max = Math.max(r,g,b), min = Math.min(r,g,b);
+    let h, s; const l = (max+min)/2;
+    if (max===min) { h=0; s=0; }
+    else {
+      const d = max-min;
+      s = l>0.5 ? d/(2-max-min) : d/(max+min);
+      if (max===r) h = (g-b)/d + (g<b?6:0);
+      else if (max===g) h = (b-r)/d + 2;
+      else h = (r-g)/d + 4;
+      h/=6;
+    }
+    return [h*360, s*100, l*100];
+  }
+  hslToRgb(h,s,l) {
+    h/=360; s/=100; l/=100;
+    if (s===0) { const v = l*255; return [v,v,v]; }
+    const q = l<0.5 ? l*(1+s) : l+s-l*s;
+    const p = 2*l-q;
+    const hue2rgb = (p,q,t) => { if (t<0) t+=1; if (t>1) t-=1; if (t<1/6) return p+(q-p)*6*t; if (t<1/2) return q; if (t<2/3) return p+(q-p)*(2/3-t)*6; return p; };
+    return [hue2rgb(p,q,h+1/3)*255, hue2rgb(p,q,h)*255, hue2rgb(p,q,h-1/3)*255];
+  }
+  mixHex(a,b,t) { const ra = this.hexToRgb(a), rb = this.hexToRgb(b); return this.rgbToHex(ra[0]+(rb[0]-ra[0])*t, ra[1]+(rb[1]-ra[1])*t, ra[2]+(rb[2]-ra[2])*t); }
+  adjustHsl(hex, { dh=0, ds=0, dl=0, setS=null, setL=null } = {}) {
+    const [h0,s0,l0] = this.rgbToHsl(...this.hexToRgb(hex));
+    const h = (h0+dh+360)%360;
+    const s = setS!==null ? setS : Math.max(0, Math.min(100, s0+ds));
+    const l = setL!==null ? setL : Math.max(0, Math.min(100, l0+dl));
+    return this.rgbToHex(...this.hslToRgb(h,s,l));
+  }
+
+  sampleDominantColors = (src, cb) => {
+    if (!src) { cb(this.FALLBACK_COLORS); return; }
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      try {
+        const w = 48, h = Math.max(1, Math.round(48 * img.height / img.width));
+        const c = document.createElement('canvas'); c.width = w; c.height = h;
+        const ctx = c.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+        const data = ctx.getImageData(0, 0, w, h).data;
+        const buckets = {};
+        for (let i = 0; i < data.length; i += 4) {
+          const key = [Math.round(data[i]/24)*24, Math.round(data[i+1]/24)*24, Math.round(data[i+2]/24)*24].join(',');
+          buckets[key] = (buckets[key] || 0) + 1;
+        }
+        const top = Object.entries(buckets).sort((a,b) => b[1]-a[1]).slice(0, 6).map(([k]) => k.split(',').map(Number));
+        if (!top.length) { cb(this.FALLBACK_COLORS); return; }
+        const withHsl = top.map((rgb) => ({ rgb, hsl: this.rgbToHsl(...rgb) }));
+        const hex = (rgb) => this.rgbToHex(...rgb);
+        const byL = [...withHsl].sort((a,b) => a.hsl[2]-b.hsl[2]);
+        const darkest = hex(byL[0].rgb);
+        const lightest = hex(byL[byL.length-1].rgb);
+        const bySat = [...withHsl].sort((a,b) => b.hsl[1]-a.hsl[1]);
+        const saturated = hex(bySat[0].rgb);
+        const warmth = (hue) => -Math.min(Math.abs(hue-30), Math.abs(hue-390), Math.abs(hue+330));
+        const byWarm = [...withHsl].sort((a,b) => warmth(b.hsl[0]) - warmth(a.hsl[0]));
+        const warmest = hex(byWarm[0].rgb);
+        const muted = withHsl.every((c) => c.hsl[1] < 22);
+        cb({ darkest, lightest, saturated, warmest, muted });
+      } catch (e) { cb(this.FALLBACK_COLORS); }
+    };
+    img.onerror = () => cb(this.FALLBACK_COLORS);
+    img.src = src;
+  };
+
+  buildShareCards(colors) {
+    const c = colors || this.FALLBACK_COLORS;
+    const plain = { key: 'plain', css: 'transparent', textColor: '#FFFFFF', grain: false, shadow: 'none', showCaption: false, canvas: { type: 'none' } };
+    const mid = this.mixHex(c.lightest, c.darkest, 0.5);
+    const vTop = this.mixHex(c.lightest, mid, 0.55);
+    const vBot = this.mixHex(c.darkest, mid, 0.55);
+    const vertical = { key: 'vertical', css: `linear-gradient(180deg, ${vTop} 0%, ${vBot} 100%)`, textColor: '#FFFFFF', grain: true, shadow: '0 20px 50px rgba(0,0,0,0.4)', canvas: { type: 'linear', angle: 180, stops: [{ pos: 0, color: vTop }, { pos: 1, color: vBot }] } };
+    const wTop = this.mixHex(c.warmest, '#FFFFFF', 0.08);
+    const wBot = this.adjustHsl(c.darkest, { dl: -8 });
+    const diagonal = { key: 'diagonal', css: `linear-gradient(135deg, ${wTop} 0%, ${wBot} 100%)`, textColor: '#FFFFFF', grain: true, shadow: '0 20px 50px rgba(0,0,0,0.4)', canvas: { type: 'linear', angle: 135, stops: [{ pos: 0, color: wTop }, { pos: 1, color: wBot }] } };
+    const glowCenter = this.adjustHsl(c.saturated, { ds: 8, dl: 4 });
+    const glowMid = this.mixHex(glowCenter, '#0A0908', 0.55);
+    const radial = { key: 'radial', css: `radial-gradient(ellipse at 50% 42%, ${glowCenter} 0%, ${glowMid} 55%, #0A0908 100%)`, textColor: '#FFFFFF', grain: true, shadow: '0 20px 50px rgba(0,0,0,0.4)', canvas: { type: 'radial', stops: [{ pos: 0, color: glowCenter }, { pos: 0.55, color: glowMid }, { pos: 1, color: '#0A0908' }] } };
+    const deepBase = this.adjustHsl(c.darkest, { setS: 12, dl: -4 });
+    const deepTop = this.mixHex(deepBase, '#000000', 0.12);
+    const deepBot = this.mixHex(deepBase, '#000000', 0.38);
+    const deep = { key: 'deep', css: `linear-gradient(160deg, ${deepTop} 0%, ${deepBot} 100%)`, textColor: '#FFFFFF', grain: true, shadow: '0 20px 50px rgba(0,0,0,0.4)', canvas: { type: 'linear', angle: 160, stops: [{ pos: 0, color: deepTop }, { pos: 1, color: deepBot }] } };
+    return [plain, vertical, diagonal, radial, deep];
+  }
+
+  // Stamp box is capped by BOTH width and height (fraction of the 4:5 card)
+  // so tall-format stamps don't balloon to near-full-card height at a flat
+  // 55% width — used identically by the on-screen card and the canvas export.
+  computeStampWidthFrac(aspect) {
+    const CARD_ASPECT = 4 / 5, maxW = 0.55, maxH = 0.42;
+    return Math.min(maxW, maxH * aspect / CARD_ASPECT);
+  }
+
+  grainUri() {
+    return 'data:image/svg+xml,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="140" height="140" filter="url(#n)" opacity="0.5"/></svg>`);
+  }
+
+  shareScrollRef = (el) => { this._shareScrollEl = el; };
+  onShareScroll = () => {
+    const el = this._shareScrollEl;
+    if (!el || !el.clientWidth) return;
+    const idx = Math.round(el.scrollLeft / el.clientWidth);
+    if (idx !== this.state.shareCardIndex) this.setState({ shareCardIndex: idx });
+  };
+
+  buildMaskPath(aspect, boxW, boxH) {
+    let W, H;
+    if (aspect <= 1) { W = Math.round(100*aspect); H = 100; } else { W = 100; H = Math.round(100/aspect); }
+    const short = Math.min(W,H);
+    const r = short*0.028;
+    const inset = r;
+    const usableW = W-2*inset, usableH = H-2*inset;
+    const nTop = Math.max(3, Math.round(usableW/(2*r)));
+    const nSide = Math.max(3, Math.round(usableH/(2*r)));
+    const sx = boxW / W, sy = boxH / H;
+    const path = new Path2D();
+    path.rect(0, 0, boxW, boxH);
+    const cut = (cx, cy, rad) => { path.moveTo((cx+rad)*sx, cy*sy); path.arc(cx*sx, cy*sy, rad*Math.max(sx,sy), 0, Math.PI*2, true); };
+    for (let i=0;i<=nTop;i++){ const x = inset+usableW*i/nTop; cut(x,0,r); cut(x,H,r); }
+    for (let i=0;i<=nSide;i++){ const y = inset+usableH*i/nSide; cut(0,y,r); cut(W,y,r); }
+    return path;
+  }
+
+  renderCardToCanvas(card, stamp, exportW = 1080) {
+    return new Promise((resolve) => {
+      const exportH = Math.round(exportW * 5/4);
+      const canvas = document.createElement('canvas');
+      canvas.width = exportW; canvas.height = exportH;
+      const ctx = canvas.getContext('2d');
+      const radius = exportW * 0.09;
+      const rr = (x,y,w,h,r) => { const p = new Path2D(); p.moveTo(x+r,y); p.arcTo(x+w,y,x+w,y+h,r); p.arcTo(x+w,y+h,x,y+h,r); p.arcTo(x,y+h,x,y,r); p.arcTo(x,y,x+w,y,r); p.closePath(); return p; };
+      ctx.save();
+      ctx.clip(rr(0,0,exportW,exportH,radius));
+      if (card.canvas.type === 'flat') { ctx.fillStyle = card.canvas.stops[0].color; ctx.fillRect(0,0,exportW,exportH); }
+      else if (card.canvas.type === 'none') { /* transparent — leave canvas as-is */ }
+      else if (card.canvas.type === 'linear') {
+        const rad = card.canvas.angle * Math.PI/180;
+        const len = Math.abs(exportW*Math.sin(rad)) + Math.abs(exportH*Math.cos(rad));
+        const cx = exportW/2, cy = exportH/2;
+        const dx = Math.sin(rad)*len/2, dy = -Math.cos(rad)*len/2;
+        const grad = ctx.createLinearGradient(cx-dx, cy-dy, cx+dx, cy+dy);
+        card.canvas.stops.forEach((s) => grad.addColorStop(s.pos, s.color));
+        ctx.fillStyle = grad; ctx.fillRect(0,0,exportW,exportH);
+      } else if (card.canvas.type === 'radial') {
+        const grad = ctx.createRadialGradient(exportW*0.5, exportH*0.42, 1, exportW*0.5, exportH*0.42, exportW*0.75);
+        card.canvas.stops.forEach((s) => grad.addColorStop(s.pos, s.color));
+        ctx.fillStyle = grad; ctx.fillRect(0,0,exportW,exportH);
+      }
+      if (card.grain) {
+        ctx.globalAlpha = 0.05; ctx.globalCompositeOperation = 'overlay';
+        for (let i=0;i<1800;i++){ const v = Math.random()*255; ctx.fillStyle = `rgb(${v},${v},${v})`; ctx.fillRect(Math.random()*exportW, Math.random()*exportH, 1.4, 1.4); }
+        ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
+      }
+      const drawStampAndText = () => {
+        const stampW = exportW * this.computeStampWidthFrac(stamp.aspect), stampH = stampW / stamp.aspect;
+        // Composite photo + perforation mask on an offscreen canvas first so
+        // the result has REAL alpha transparency in the notches — drawing
+        // the photo then clipping in one pass left the white backing fill
+        // showing through the notches instead of true transparency.
+        const off = document.createElement('canvas');
+        off.width = Math.max(1, Math.ceil(stampW)); off.height = Math.max(1, Math.ceil(stampH));
+        const octx = off.getContext('2d');
+        const img = this._stampImgCache && this._stampImgCache[stamp.photoSrc];
+        if (img) octx.drawImage(img, 0, 0, stampW, stampH);
+        const path = this.buildMaskPath(stamp.aspect, stampW, stampH);
+        octx.globalCompositeOperation = 'destination-in';
+        octx.fill(path, 'evenodd');
+        octx.globalCompositeOperation = 'source-over';
+
+        ctx.save();
+        ctx.translate(exportW/2, exportH*0.46);
+        ctx.rotate(1.5 * Math.PI/180);
+        ctx.shadowColor = 'rgba(0,0,0,0.35)'; ctx.shadowBlur = exportW*0.05; ctx.shadowOffsetY = exportW*0.02;
+        ctx.drawImage(off, -stampW/2, -stampH/2, stampW, stampH);
+        ctx.shadowColor = 'transparent';
+        ctx.restore();
+        if (card.showCaption !== false) {
+          const pad = exportW * 0.06;
+          const wcol = card.textColor === '#FFFFFF';
+          ctx.textAlign = 'left';
+          ctx.fillStyle = wcol ? 'rgba(255,255,255,0.7)' : 'rgba(28,27,24,0.7)';
+          ctx.font = `600 ${Math.round(exportW*0.034)}px 'Outfit', sans-serif`;
+          ctx.fillText(stamp.displayTitle, pad, exportH - pad - exportW*0.03);
+          ctx.fillStyle = wcol ? 'rgba(255,255,255,0.5)' : 'rgba(28,27,24,0.5)';
+          ctx.font = `500 ${Math.round(exportW*0.026)}px 'Outfit', sans-serif`;
+          ctx.fillText(stamp.date, pad, exportH - pad);
+          ctx.textAlign = 'right';
+          ctx.fillText('OneStamp', exportW - pad, exportH - pad);
+        }
+        ctx.restore();
+        resolve(canvas);
+      };
+      if (stamp.photoSrc) {
+        this._stampImgCache = this._stampImgCache || {};
+        if (this._stampImgCache[stamp.photoSrc]) { drawStampAndText(); return; }
+        const img = new Image();
+        img.onload = () => { this._stampImgCache[stamp.photoSrc] = img; drawStampAndText(); };
+        img.onerror = drawStampAndText;
+        img.src = stamp.photoSrc;
+      } else drawStampAndText();
+    });
+  }
+
+  currentShareStamp = () => {
+    const st = this.state.stamps.find((s) => s.id === this.state.currentStampId);
+    if (!st) return { id: '', displayTitle: '', date: '', maskUri: '', aspect: 0.64, photoSrc: '', stampWidthPct: 55 };
+    const d = this.decorateStamp(st);
+    return { ...d, photoSrc: d.photoSrc || this.state.shareResolvedSrc || '', stampWidthPct: this.computeStampWidthFrac(d.aspect) * 100 };
+  };
+  currentShareCard = () => (this.state.shareCards || this.buildShareCards(null))[this.state.shareCardIndex];
+  flashToast = (msg) => { this.setState({ shareToast: msg }); setTimeout(() => this.setState({ shareToast: null }), 1800); };
+
+  downloadCard = async () => {
+    const card = this.currentShareCard(); if (!card) return;
+    try { await document.fonts.ready; } catch (e) {}
+    const canvas = await this.renderCardToCanvas(card, this.currentShareStamp());
+    const a = document.createElement('a');
+    a.href = canvas.toDataURL('image/png');
+    a.download = ((this.currentShareStamp().displayTitle || 'stamp').replace(/\s+/g,'-')) + '.png';
+    a.click();
+    this.flashToast('Saved');
+  };
+  copyCard = async () => {
+    const card = this.currentShareCard(); if (!card) return;
+    try { await document.fonts.ready; } catch (e) {}
+    const canvas = await this.renderCardToCanvas(card, this.currentShareStamp());
+    canvas.toBlob(async (blob) => {
+      try { await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]); this.flashToast('Copied to clipboard'); }
+      catch (e) { this.flashToast('Copy not supported here'); }
+    });
+  };
+  shareCard = async () => {
+    const card = this.currentShareCard(); if (!card) return;
+    try { await document.fonts.ready; } catch (e) {}
+    const canvas = await this.renderCardToCanvas(card, this.currentShareStamp());
+    canvas.toBlob(async (blob) => {
+      const file = new File([blob], 'stamp.png', { type: 'image/png' });
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+        try { await navigator.share({ files: [file], title: this.currentShareStamp().displayTitle }); } catch (e) {}
+      } else {
+        const a = document.createElement('a'); a.href = canvas.toDataURL('image/png'); a.download = 'stamp.png'; a.click();
+        this.flashToast('Sharing not supported here — saved instead');
+      }
+    });
+  };
+  stampPointerDown = (id) => {
+    if (this.state.selecting) return;
+    this._pressTimer = setTimeout(() => this.setState({ selecting: true, selectedIds: [id] }), 500);
+  };
+  stampPointerUp = () => { if (this._pressTimer) { clearTimeout(this._pressTimer); this._pressTimer = null; } };
+  toggleStampSelect = (id) => this.setState((s) => ({ selectedIds: s.selectedIds.includes(id) ? s.selectedIds.filter((x) => x !== id) : [...s.selectedIds, id] }));
+  enterSelectMode = () => this.setState({ selecting: true, selectedIds: [], overlay: null });
+  cancelSelectMode = () => this.setState({ selecting: false, selectedIds: [] });
+  selectAllInGrid = () => {
+    const ids = this.state.stamps.filter((st) => st.collectionId === this.state.currentCollectionId).map((st) => st.id);
+    this.setState({ selectedIds: ids });
+  };
+  deleteSelected = () => {
+    if (!this.state.selectedIds.length) return;
+    this.setState((s) => ({ stamps: s.stamps.filter((st) => !s.selectedIds.includes(st.id)), selecting: false, selectedIds: [] }));
+  };
+  openExportForSelection = () => {
+    if (!this.state.selectedIds.length) return;
+    this.setState({ selecting: false, screen: 'share' });
+  };
+  openPaywall = () => this.setState({ showPaywall: true });
+  closePaywall = () => this.setState({ showPaywall: false });
+  setCaptureFormat = (k) => this.setState({ captureFormat: k });
+
+  openCapture = () => {
+    if (this.state.quotaRemaining <= 0) { this.setState({ showPaywall: true }); return; }
+    this.setState((s) => ({ screen: 'capture', overlay: null, captureSession: s.captureSession + 1, feedView: { s: 1.2, x: 0, y: 0 } }));
+  };
+  openCaptureFor = (collectionId) => {
+    if (this.state.quotaRemaining <= 0) { this.setState({ showPaywall: true }); return; }
+    this.setState((s) => ({ screen: 'capture', overlay: null, currentCollectionId: collectionId, captureSession: s.captureSession + 1, feedView: { s: 1.2, x: 0, y: 0 } }));
+  };
+  openLibraryPicker = () => {
+    const slot = document.getElementById(this.captureFeedId());
+    if (slot && slot.openFilePicker) slot.openFilePicker();
+  };
+  cropFeed() {
+    const fallback = { photoSrc: '', sourceSrc: '', rectPct: { x: 0, y: 0, w: 1, h: 1 }, sourceAspect: 0.75 };
+    try {
+      const hit = document.getElementById('capture-hit');
+      if (!hit) return fallback;
+      const apRect = hit.getBoundingClientRect();
+      let mediaEl, mediaW, mediaH, sx, sy, sw, sh;
+      if (this.state.cameraActive && this._videoEl && this._videoEl.videoWidth) {
+        mediaEl = this._videoEl;
+        mediaW = mediaEl.videoWidth; mediaH = mediaEl.videoHeight;
+        const rect = mediaEl.getBoundingClientRect();
+        // Video renders at natural aspect (width 100%, height auto) plus our
+        // own pan/zoom transform — getBoundingClientRect already reflects that
+        // transform, so a single uniform scale maps aperture px to source px.
+        const scale = mediaW / rect.width;
+        sx = (apRect.left - rect.left) * scale;
+        sy = (apRect.top - rect.top) * scale;
+        sw = apRect.width * scale; sh = apRect.height * scale;
+      } else {
+        const slot = document.getElementById(this.captureFeedId());
+        if (!slot || !slot.shadowRoot) return fallback;
+        const img = slot.shadowRoot.querySelector('.frame img');
+        if (!img || !img.naturalWidth) return fallback;
+        mediaEl = img; mediaW = img.naturalWidth; mediaH = img.naturalHeight;
+        const imgRect = img.getBoundingClientRect();
+        const scaleX = mediaW / imgRect.width, scaleY = mediaH / imgRect.height;
+        sx = (apRect.left - imgRect.left) * scaleX; sy = (apRect.top - imgRect.top) * scaleY;
+        sw = apRect.width * scaleX; sh = apRect.height * scaleY;
+      }
+      // Export at up to 1600px on the long edge (never upscaling past the
+      // source's own resolution) — the old 500px cap made stamps visibly
+      // soft anywhere they render larger than a small thumbnail.
+      const outW = Math.round(Math.min(1600, Math.max(sw, sh))), outH = Math.round(outW * (sh / sw));
+      const canvas = document.createElement('canvas');
+      canvas.width = outW; canvas.height = outH;
+      const cctx = canvas.getContext('2d');
+      cctx.imageSmoothingQuality = 'high';
+      cctx.drawImage(mediaEl, sx, sy, sw, sh, 0, 0, outW, outH);
+      const photoSrc = canvas.toDataURL('image/jpeg', 0.95);
+      const srcW = Math.min(1600, mediaW);
+      const srcCanvas = document.createElement('canvas');
+      srcCanvas.width = srcW; srcCanvas.height = Math.round(srcW * mediaH / mediaW);
+      const sctx = srcCanvas.getContext('2d');
+      sctx.imageSmoothingQuality = 'high';
+      sctx.drawImage(mediaEl, 0, 0, srcCanvas.width, srcCanvas.height);
+      const sourceSrc = srcCanvas.toDataURL('image/jpeg', 0.92);
+      const rectPct = { x: sx / mediaW, y: sy / mediaH, w: sw / mediaW, h: sh / mediaH };
+      return { photoSrc, sourceSrc, rectPct, sourceAspect: mediaW / mediaH };
+    } catch (e) { return fallback; }
+  }
+  closeCapture = () => this.setState((s) => ({ screen: s.currentCollectionId ? 'grid' : 'home' }));
+
+  punch = () => {
+    if (this.state.punching) return;
+    if (this.state.quotaRemaining <= 0) { this.setState({ showPaywall: true }); return; }
+    this.setState({ punching: true });
+    const crop = this.cropFeed();
+    setTimeout(() => {
+      // Unique per punch (not sequential) — a sequential id would reset on
+      // reload and can collide with a photo an old session already stored
+      // under that same id in the shared sidecar, which always wins over a
+      // fresh src, so the wrong photo would show up.
+      const id = 's' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+      const collectionId = this.state.currentCollectionId || 'c1';
+      const draftStamp = { id, collectionId, title: null, date: this.today(), formatKey: this.state.captureFormat, rotation: (Math.random() * 5 - 2.5), photoSrc: crop.photoSrc, sourceSrc: crop.sourceSrc, rectPct: crop.rectPct, sourceAspect: crop.sourceAspect };
+      this.setState((s) => ({
+        nextId: s.nextId + 1,
+        punching: false,
+        draftStamp,
+        screen: 'review',
+      }));
+    }, 220);
+  };
+
+  keepStamp = () => {
+    this.setState((s) => {
+      if (!s.draftStamp) return {};
+      const finalStamp = { ...s.draftStamp, title: (s.draftStamp.title || '').trim() || null };
+      return {
+        stamps: [finalStamp, ...s.stamps],
+        quotaRemaining: s.quotaRemaining - 1,
+        currentCollectionId: s.draftStamp.collectionId,
+        screen: 'grid',
+        justCreatedId: s.draftStamp.id,
+        draftStamp: null,
+      };
+    });
+    setTimeout(() => this.setState({ justCreatedId: null }), 900);
+  };
+
+  discardStamp = () => this.setState((s) => ({ draftStamp: null, screen: 'capture', captureSession: s.captureSession + 1, feedView: { s: 1.2, x: 0, y: 0 } }));
+  openRecrop = () => {
+    const st = this.state.stamps.find((s) => s.id === this.state.currentStampId);
+    if (!st) return;
+    this.setState({ screen: 'recrop', overlay: null, captureFormat: st.formatKey }, () => this.enableFeedPan());
+  };
+  cancelRecrop = () => this.setState({ screen: 'detail' });
+  recropCommit = () => {
+    if (this.state.punching) return;
+    this.setState({ punching: true });
+    setTimeout(() => {
+      this.setState((s) => ({
+        stamps: s.stamps.map((st) => st.id === s.currentStampId ? { ...st, formatKey: s.captureFormat } : st),
+        punching: false,
+        screen: 'detail',
+      }));
+    }, 220);
+  };
+  setDraftTitle = (e) => { const v = e.target.value; this.setState((s) => ({ draftStamp: { ...s.draftStamp, title: v } })); };
+  startRename = () => this.setState({ renaming: true, overlay: null });
+  cancelRename = () => this.setState({ renaming: false });
+  setStampTitle = (e) => {
+    const v = e.target.value;
+    this.setState((s) => ({ stamps: s.stamps.map((st) => st.id === s.currentStampId ? { ...st, title: v } : st) }));
+  };
+
+  renderVals() {
+    const s = this.state;
+    const cutterGeom = this.buildCutterGeom(this.FORMATS[s.captureFormat].aspect);
+    const collectionsWithMeta = s.collections.map((col) => {
+      const stamps = s.stamps.filter((st) => st.collectionId === col.id);
+      return {
+        id: col.id,
+        name: col.name,
+        countLabel: stamps.length === 0 ? 'No stamps yet' : (stamps.length + ' stamps'),
+        hasStamps: stamps.length > 0,
+        empty: stamps.length === 0,
+        covers: stamps.slice(0, 3).map((st) => this.decorateStamp(st)),
+        onOpen: () => this.openCollection(col.id),
+        onQuickAdd: (e) => { e.stopPropagation(); this.openCaptureFor(col.id); },
+      };
+    });
+
+    const currentCollection = s.collections.find((c) => c.id === s.currentCollectionId) || { name: '' };
+    const selecting = s.selecting;
+    const gridStamps = s.currentCollectionId
+      ? s.stamps.filter((st) => st.collectionId === s.currentCollectionId).map((st) => {
+          const d = this.decorateStamp(st);
+          const sel = s.selectedIds.includes(st.id);
+          return {
+            ...d,
+            selecting,
+            selected: sel,
+            checkBg: sel ? '#1C1B18' : 'rgba(255,255,255,0.5)',
+            dimOpacity: selecting && !sel ? 0.55 : 1,
+            onClick: selecting ? () => this.toggleStampSelect(st.id) : () => this.openStamp(st.id),
+            onPointerDown: () => this.stampPointerDown(st.id),
+            onPointerUp: this.stampPointerUp,
+          };
+        })
+      : [];
+
+    const rawCurrentStamp = s.stamps.find((st) => st.id === s.currentStampId);
+    const currentStamp = rawCurrentStamp ? this.decorateStamp(rawCurrentStamp) : { id: '', displayTitle: '', date: '', maskUri: '', aspect: 0.64, sourceAspect: 0.75, sourceSrc: '', rectPct: { x: 0, y: 0, w: 1, h: 1 } };
+    currentStamp.rectPctLeft = Math.round(currentStamp.rectPct.x * 1000) / 10;
+    currentStamp.rectPctTop = Math.round(currentStamp.rectPct.y * 1000) / 10;
+    currentStamp.rectPctWidth = Math.round(currentStamp.rectPct.w * 1000) / 10;
+    currentStamp.rectPctHeight = Math.round(currentStamp.rectPct.h * 1000) / 10;
+
+    const moveDisabled = s.collections.length <= 1;
+
+    const formatsList = Object.keys(this.FORMATS).map((k) => {
+      const selected = k === s.captureFormat;
+      return {
+        key: k,
+        label: this.FORMATS[k].label,
+        glyphW: Math.max(9, Math.round(16 * this.FORMATS[k].aspect)),
+        bg: selected ? '#FCFAF5' : 'transparent',
+        shadow: selected ? '0 3px 8px rgba(0,0,0,0.25)' : 'none',
+        fg: selected ? '#1C1B18' : '#FFFFFF',
+        onClick: () => this.setCaptureFormat(k),
+      };
+    });
+
+    return {
+      isHome: s.screen === 'home',
+      isGrid: s.screen === 'grid',
+      isDetail: s.screen === 'detail',
+      isCapture: s.screen === 'capture',
+      isRecrop: s.screen === 'recrop',
+      isShare: s.screen === 'share',
+      isReview: s.screen === 'review',
+      isAdjust: s.screen === 'adjust',
+      draftStamp: s.draftStamp ? this.decorateStamp(s.draftStamp) : { id: '', displayTitle: '', maskUri: '', aspect: 0.64 },
+      draftTitleValue: (s.draftStamp && s.draftStamp.title) || '',
+      homeMenuOpen: s.overlay === 'home',
+      stampMenuOpen: s.overlay === 'stamp',
+      showPaywall: s.showPaywall,
+      renamingCollection: s.renamingCollection,
+      collectionTitleVisible: !s.renamingCollection,
+      showDeleteCollectionConfirm: s.showDeleteCollectionConfirm,
+      collectionsWithMeta,
+      currentCollectionName: currentCollection.name,
+      gridStampCount: gridStamps.length + (gridStamps.length === 1 ? ' stamp' : ' stamps'),
+      gridStamps,
+      currentStamp,
+      moveOpacity: moveDisabled ? 0.35 : 1,
+      moveCursor: moveDisabled ? 'default' : 'pointer',
+      formatsList,
+      quotaRemaining: s.quotaRemaining,
+      quotaTotal: s.quotaTotal,
+      apertureAnim: s.punching ? 'transform:scale(0.92);' : '',
+      cutter: cutterGeom,
+      cardW: cutterGeom.hitW * s.feedView.s,
+      cardH: cutterGeom.hitH * s.feedView.s,
+      noop: this.noop,
+      toggleHomeMenu: this.toggleHomeMenu,
+      toggleStampMenu: this.toggleStampMenu,
+      closeMenus: this.closeMenus,
+      createCollection: this.createCollection,
+      startRenameCollection: this.startRenameCollection,
+      cancelRenameCollection: this.cancelRenameCollection,
+      setCollectionName: this.setCollectionName,
+      requestDeleteCollection: this.requestDeleteCollection,
+      cancelDeleteCollection: this.cancelDeleteCollection,
+      confirmDeleteCollection: this.confirmDeleteCollection,
+      backFromGrid: this.backFromGrid,
+      backFromDetail: this.backFromDetail,
+      openShare: this.openShare,
+      closeShare: this.closeShare,
+      openCapture: this.openCapture,
+      closeCapture: this.closeCapture,
+      openPaywall: this.openPaywall,
+      closePaywall: this.closePaywall,
+      punch: this.punch,
+      deleteStamp: this.deleteStamp,
+      keepStamp: this.keepStamp,
+      discardStamp: this.discardStamp,
+      setDraftTitle: this.setDraftTitle,
+      openRecrop: this.openRecrop,
+      cancelRecrop: this.cancelRecrop,
+      recropCommit: this.recropCommit,
+      openLibraryPicker: this.openLibraryPicker,
+      captureFeedId: this.captureFeedId(),
+      cameraActive: s.cameraActive,
+      cameraError: !!s.cameraError && !s.cameraActive,
+      showFeedFallback: !s.cameraActive,
+      videoRef: this.videoRef,
+      lockStampRef: this.lockStampRef,
+      captureFeedRef: this.captureFeedRef,
+      captureScreenRef: this.captureScreenRef,
+      feedView: s.feedView,
+      enterAdjust: this.enterAdjust,
+      cancelAdjust: this.cancelAdjust,
+      commitAdjust: this.commitAdjust,
+      adjustPointerDown: this.adjustPointerDown,
+      adjustPointerMove: this.adjustPointerMove,
+      adjustPointerUp: this.adjustPointerUp,
+      adjustWheel: this.adjustWheel,
+      zoomIn: this.zoomIn,
+      zoomOut: this.zoomOut,
+      adjustVideoRef: this.adjustVideoRef,
+      adjustFeedRef: this.adjustFeedRef,
+      renaming: s.renaming,
+      startRename: this.startRename,
+      cancelRename: this.cancelRename,
+      setStampTitle: this.setStampTitle,
+      titleCapsuleDisplay: s.renaming ? 'display:none;' : '',
+      gridHeaderNormal: !selecting,
+      selecting,
+      selectCountLabel: s.selectedIds.length + ' selected',
+      enterSelectMode: this.enterSelectMode,
+      cancelSelectMode: this.cancelSelectMode,
+      selectAllInGrid: this.selectAllInGrid,
+      openExportForSelection: this.openExportForSelection,
+      deleteSelected: this.deleteSelected,
+      selectionActionOpacity: s.selectedIds.length ? 1 : 0.4,
+      shareStamp: this.currentShareStamp(),
+      shareCardsView: (s.shareCards || this.buildShareCards(null)).map((c, i) => ({ ...c, showCaption: c.showCaption !== false, active: i === s.shareCardIndex })),
+      shareDots: (s.shareCards || this.buildShareCards(null)).map((c, i) => ({ bg: i === s.shareCardIndex ? '#FCFAF5' : 'rgba(255,255,255,0.3)' })),
+      grainUri: this.grainUri(),
+      shareScrollRef: this.shareScrollRef,
+      onShareScroll: this.onShareScroll,
+      downloadCard: this.downloadCard,
+      copyCard: this.copyCard,
+      shareCard: this.shareCard,
+      shareToastVisible: !!s.shareToast,
+      shareToast: s.shareToast || '',
+      detailBgStyle: s.detailBg || 'linear-gradient(180deg,#FBF8F1 0%,#E7E4D9 100%)',
+    };
+  }
+}
+
+</script>
+</body>
+</html>
